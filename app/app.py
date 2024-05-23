@@ -7,6 +7,7 @@ def index():
     titulo = 'inicio 2'
     return render_template('index.html', titulo= titulo)
 
+
 @app.route("/sobre_nosotros") #diccionario de rutas 
 def sobre_nosotros():
     return render_template('sobre_nosotros.html')
@@ -23,6 +24,12 @@ def error():
 @app.route("/dasboard")
 def dasboard():
     return render_template('dasboard.html')
+
+
+@app.route("/in") #diccionario de rutas 
+def index2():
+    titulo = 'inicio 3'
+    return render_template('index2.html', titulo= titulo)
 
 if __name__ == '__main__':
     app.run(debug=True, port= 8080)
