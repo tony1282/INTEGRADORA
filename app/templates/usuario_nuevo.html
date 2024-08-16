@@ -1,0 +1,109 @@
+{% extends './layout.html' %}
+{% block title %} {{titulo}} {% endblock %}
+{% block body %}
+<h2>Usuario nuevo</h2>
+<br>
+
+<!-- -----------------Alertas de registro, editado, borrado y restaurado---------------------------- -->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{% if " Error" in message %}danger {% elif "Advertencia" in message %}warning {% else %}success
+  {% endif %} alert-dismissible fade show" role="alert">
+  <strong>{{message}}</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+<!-- ------------------------------------------------------------------------------------------- -->
+
+<form method="POST" action="{{url_for('usuarios_crear')}}" enctype="multipart/form-data">
+  <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="nombre_usuario">Nombre(s)</label>
+        <input type="text" class="form-control" id="nombre_usuario" placeholder="Nombre" name="nombre_usuario" required>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="apellido_usuario">Apellido Paterno</label>
+        <input type="text" class="form-control" id="apellido_usuario" placeholder="Apellido Paterno"
+          name="apellido_paterno" required>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="apellido_usuario">Apellido Materno</label>
+        <input type="text" class="form-control" id="apellido_usuario" placeholder="Apellido Materno"
+          name="apellido_materno" required>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="celular_usuario">Número de teléfono</label>
+        <input type="text" class="form-control" id="celular_usuario" placeholder="Número" name="celular_usuario"
+          required>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="domicilio_usuario">Domicilio</label>
+        <input type="text" class="form-control" id="domicilio_usuario" placeholder="Calle" name="domicilio_usuario"
+          required>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="contrasenia">Contraseña</label>
+        <input type="password" class="form-control" id="contrasenia" placeholder="Contraseña" name="contrasenia"
+          required>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="correo_electronico">Correo Electrónico</label>
+        <input type="text" class="form-control" id="correo_electronico" placeholder="Correo" name="correo_electronico"
+          required>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="Cargo">Cargo</label>
+        <select name="id_rol" id="id_rol" class="form-select" aria-label="Default select example" required>
+          <option value="" selected>------Seleccione el cargo--------</option>
+          {% if roles %}
+          {% for rol in roles %}
+          <option value="{{rol.0}}">{{rol.1}}</option>
+          {% endfor %}
+          {% else %}
+          <option>Aún no hay registros</option>
+          {% endif %}
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <div class="text-center">
+    <a class="btn btn-outline-danger d-inline-flex align-items-center" href="{{url_for('usuarios')}}">Cancelar</a>
+    <button class="btn btn-outline-danger d-inline-flex align-items-center" type="submit">Guardar</button>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends './layout.html' %}
+{% block title %} Ay hola {% endblock %}
+{% block body %}
+
+<h2>Detalles de Prenda eliminada</h2>
+<br>
+<p class="fc">Fecha creación: {{prendas[6]}}</p>
+<p class="fc">Fecha modificación: {{prendas[7]}}</p>
+<br>
+<table class="table-bordered table-responsive">
+
+    <thead>
+        <tr>
+            <!-- -----------TITULOS----------- -->
+            <th class="text-center tit">Categoría </th>
+            <th class="text-center tit">Talla </th>
+            <th class="text-center tit">Marca</th>
+            <th class="text-center tit">Color </th>
+            <th class="text-center tit">Precio </th>
+            <th class="text-center tit">Proveedor </th>
+            <th class="text-center tit">Código</th>
+            <th class="text-center tit">Cantidad</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- ---------------------CONTENIDO----------------- -->
+        <tr>
+            <!-- Categoria -->
+            <td class="text-center">
+                {{prendas[3]}}
+            </td>
+            <!-- Talla -->
+            <td class="text-center">
+                {{prendas[9]}}
+            </td>
+            <!-- Marca -->
+            <td class="text-center">
+                {{prendas[4]}}
+            </td>
+            <!-- Color -->
+            <td class="text-center">
+                {{prendas[8]}}
+            </td>
+            <!-- Precio -->
+            <td class="text-center">
+                {{prendas[10]}}
+            </td>
+            <!-- proveedor -->
+            <td class="text-center">
+                {{prendas[2]}}
+            </td>
+            <!-- codigo -->
+            <td class="text-center">
+                {{prendas[1]}}
+            </td>
+            <!-- Cantidad -->
+            <td class="text-center">
+                {{prendas[11]}}
+            </td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<!-- --------------botones de restaurar y cancelar -->
+<div>
+    <a class="btn-act btn btn-outline-danger d-inline-flex align-items-center"
+        href="{{ url_for('prendas_restaurar', id = prendas[0]) }}">Restaurar</a>
+</div>
+<br>
+<div>
+
+    <a class="btn-act btn btn-outline-danger d-inline-flex align-items-center"
+        href="{{url_for('prendas')}}">Cancelar</a>
+</div>
+{% endblock %}

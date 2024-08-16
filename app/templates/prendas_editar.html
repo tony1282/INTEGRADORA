@@ -1,0 +1,50 @@
+{% extends './layout.html' %}
+
+{% block title %} {{titulo}} {% endblock %}
+
+{% block body %}
+<h2 class="text-center">Editar Prenda</h2>
+<br>
+<form method="POST" action="{{url_for('prendas_actualizar',id=prendas[0])}}" class="mx-auto" style="max-width: 500px;">
+  <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+
+  <div class="form-group">
+    <label for="color_prenda" class="d-block text-center">Color</label>
+    <select name="color_prenda" id="color_prenda" class="form-select mx-auto" style="max-width: 300px;">
+      <option value="true">------Seleccione el color--------</option>
+      {% if colores %}
+      {% for color in colores %}
+      <option value="{{color.0}}" {% if color.0==prendas[3] %}selected{% endif %}>{{color.1}}</option>
+      {% endfor %}
+      {% else %}
+      <option>Aún no hay registros</option>
+      {% endif %}
+    </select>
+  </div>
+
+
+  <div class="form-group">
+    <label for="precio_prenda" class="d-block text-center">Precio</label>
+    <input type="text" class="form-control mx-auto" id="precio_prenda" placeholder="$ 0.00" name="precio_prenda"
+      value="{{prendas[10]}}" style="max-width: 300px;">
+  </div>
+
+  <div class="form-group">
+    <label for="cantidad" class="d-block text-center">Cantidad</label>
+    <input type="number" class="form-control mx-auto" id="cantidad" placeholder="Cantidad" name="cantidad"
+      value="{{prendas[11]}}" style="max-width: 300px;">
+  </div>
+
+  <!-- ---------------------------------------------ACCIONES-------------------------------------------------- -->
+  <br>
+  <div class="text-center">
+    <button class="btn btn-outline-danger d-inline-flex align-items-center" type="submit">
+      Guardar
+    </button>
+    <a class="btn btn-outline-danger d-inline-flex align-items-center" href="{{url_for('prendas')}}">
+      Cancelar
+    </a>
+  </div>
+</form>
+
+{% endblock %}

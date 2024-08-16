@@ -1,0 +1,139 @@
+{% extends './layout.html' %}
+{% block title %} Ay hola {% endblock %}
+{% block body %}
+<!-- -------------------------------TITULO------------------- -->
+<h2>Papelera de usuarios</h2>
+
+<!-- -----------------Alertas de registro, editado, borrado y restaurado---------------------------- -->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{% if " Error" in message %}danger {% elif "Advertencia" in message %}warning {% else %}success
+        {% endif %} alert-dismissible fade show" role="alert">
+        <strong>{{message}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<!-- ----------------------------------------Buscador------------------------------------------------ -->
+<br>
+<div class="row mb-2">
+        <div class="col">
+                <h2></h2>
+        </div>
+        <div class="col">
+                <form method="get" action="{{url_for('proveedor_papelera')}}" class="d-flex">
+                        <input class="form-control" type="text" name="buscar" value="{{ search_query }}"
+                                placeholder="Buscar..." required>
+                        <button class="btn btn-outline-danger d-inline-flex align-items-center" type="submit"><i
+                                        class="fas fa-search"></i> </button>
+                </form>
+        </div>
+        <!-- --------------------------------------------------------------- -->
+        <div class="col text-end"><img src="" alt=""></div>
+</div>
+<br>
+
+<!-- ----------------------------------------------TABLA--------------------------------------------------- -->
+<table class="table-bordered table-responsive">
+        <thead>
+                <!-- -------------------------------TITULOS------------------------------------- -->
+                <tr>
+                        {% if current_user.rol == 1 %}
+                        <th class="text-center tit">Ver</th>
+                        {% endif %}
+                        <th class="text-center tit">Nombre </th>
+                        <th class="text-center tit">Apellido Paterno </th>
+                        <th class="text-center tit">Apellido Materno </th>
+                </tr>
+        </thead>
+        <!-- -------------------------------CONTENIDO----------------------------------- -->
+        <tbody>
+                {% if usuarios %}
+                {% for usuario in usuarios %}
+                {% if usuario.estado == False %}
+                <tr>
+                        {% if current_user.rol == 1 %}
+                        <td class="text-center">
+                                <div class="btn btn-outline-danger d-inline-flex align-items-center">
+
+                                        <a href="{{ url_for('usuarios_detallesRes', id = usuario.id_usuario) }}"><img
+                                                        src="{{ url_for('static',filename = 'img/eye.svg') }}"
+                                                        alt="borrar" height="18"></a>
+                                </div>
+                        </td>
+                        {% endif %}
+                        <td class="text-center">
+                                {{usuario.nombre_usuario}}
+                        </td>
+                        <td class="text-center">
+                                {{usuario.apellido_paterno}}
+                        </td>
+                        <td class="text-center">
+                                {{usuario.apellido_materno}}
+                        </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <tr>
+                        <td align="center" colspan="8">No existen usuarios</td>
+                </tr>
+                {% endif %}
+        </tbody>
+</table>
+<!-- -------------------------------------------------PAGINADOR----------------------------------------------- -->
+<nav aria-label="Page navigation example" class="justify-content-center">
+        <ul class="pagination justify-content-center" style="margin:20px 0">
+                {% if page > 1 %}
+                <li class="page-item">
+                        <a class="page-link"
+                                href="{{url_for('usuarios_papelera')}}?page={{ page - 1 }}&per_page={{ per_page }}"
+                                aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                        </a>
+                </li>
+                {% if page != 1 and page != 2 %}
+                <li class="page-item"><a class="page-link" href="{{url_for('usuarios_papelera')}}">1</a></li>
+                {% if page != 3 %}
+                <li class="page-item"><a class="page-link disabled">...</a></li>
+                {% endif %}
+                {% endif %}
+                <li class="page-item"><a class="page-link"
+                                href="{{url_for('usuarios_papelera')}}?page={{ page - 1 }}&per_page={{ per_page }}">{{page-1}}</a>
+                </li>
+                {% endif %}
+
+                <li class="page-item"><a class="page-link active" href="#">{{page}}</a></li>
+
+                {% if page < total_pages %} <li class="page-item"><a class="page-link"
+                                href="{{url_for('usuarios_papelera')}}?page={{ page + 1 }}&per_page={{ per_page }}">{{page+1}}</a>
+                        </li>
+                        {% if page != total_pages and page != total_pages-1 %}
+                        {% if page != total_pages-2 %}
+                        <li class="page-item"><a class="page-link disabled">...</a></li>
+                        {% endif %}
+                        <li class="page-item"><a class="page-link"
+                                        href="{{url_for('usuarios_papelera')}}?page={{ total_pages }}&per_page={{ per_page }}">{{total_pages}}</a>
+                        </li>
+                        {% endif %}
+                        <li class="page-item">
+                                <a class="page-link"
+                                        href="{{url_for('usuarios_papelera')}}?page={{ page + 1 }}&per_page={{ per_page }}"
+                                        aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                </a>
+                        </li>
+                        {% endif %}
+        </ul>
+</nav>
+<br>
+<!-- -----------------------------boton de cancelar -->
+<div>
+        <a class="btn btn-outline-danger d-inline-flex align-items-center" href="{{ url_for('usuarios')}}"><img
+                        src="{{ url_for('static',filename = 'img/undo.svg') }}" alt="ver" height="18"></a>
+</div>
+
+{% endblock %}

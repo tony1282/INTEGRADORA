@@ -1,0 +1,32 @@
+{% extends './layout.html' %}
+
+{% block title %} {{ titulo }} {% endblock %}
+
+{% block body %}
+<h2>Actualizar Apartado</h2>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form method="POST" action="{{ url_for('apartado_actualizar', id=apartados[0]) }}" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+        <div class="form-group">
+          <label for="anticipo">Pagado</label>
+          <input type="text" class="form-control" id="anticipo" placeholder="ej.200" name="anticipo" value="{{ apartados[1] }}">
+        </div>
+
+        <div class="form-group">
+          <label for="fecha_limite">Fecha límite</label>
+          <input type="date" class="form-control" id="fecha_limite" placeholder="AAAA-MM-DD" name="fecha_limite" value="{{ apartados[7] }}">
+        </div>
+        <br>
+        <div class="text-center">
+          <a class="btn btn-outline-danger d-inline-flex align-items-center" href="{{ url_for('sApartado') }}">Cancelar</a>
+          <button class="btn btn-outline-danger d-inline-flex align-items-center" type="submit">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

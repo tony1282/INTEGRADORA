@@ -1,0 +1,69 @@
+{% extends './layout.html' %}
+{% block title %} Ay hola {% endblock %}
+{% block body %}
+<h2>Detalles de Usuario eliminado</h2>
+<br>
+<p class="fc">Fecha creación: {{usuarios[10]}}</p>
+<p class="fc">Fecha modificación: {{usuarios[11]}}</p>
+<br>
+<table class="table-bordered table-responsive">
+
+    <thead>
+        <tr>
+            <th class="text-center tit">Nombre </th>
+            <th class="text-center tit">Apellido Paterno</th>
+            <th class="text-center tit">Apellido Materno</th>
+            <th class="text-center tit">Celular </th>
+            <th class="text-center tit">Domicilo </th>
+            <!-- <th class="text-center">Contraseña </th> -->
+            <th class="text-center tit">Correo Electrónico </th>
+            <th class="text-center tit">Cargo</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+
+            <td class="text-center">
+                {{usuarios[1]}}
+            </td>
+            <td class="text-center">
+                {{usuarios[2]}}
+            </td>
+            <td class="text-center">
+                {{usuarios[3]}}
+            </td>
+            <td class="text-center">
+                {{usuarios[4]}}
+            </td>
+            <td class="text-center">
+                {{usuarios[5]}}
+            </td>
+            <!-- <td class="text-center">
+                {{usuarios[6]}}
+            </td> -->
+            <td class="text-center">
+                {{usuarios[7]}}
+            </td>
+            <td class="text-center">
+                {{usuarios[14]}}
+            </td>
+
+        </tr>
+    </tbody>
+</table>
+<br>
+<div>
+
+    <!-- botones de editar y cancelar -->
+    <div>
+        <a class="btn-act btn btn-outline-danger d-inline-flex align-items-center"
+            href="{{ url_for('usuarios_restaurar', id = usuarios[0]) }}">Restaurar</a>
+    </div>
+    <br>
+    <div>
+
+        <a class="btn-act btn btn-outline-danger d-inline-flex align-items-center" href="{{url_for('usuarios')}}">
+            Cancelar</a>
+    </div>
+
+    {% endblock %}

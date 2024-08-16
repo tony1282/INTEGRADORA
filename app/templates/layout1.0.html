@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <title> </title> 
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https:// cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'css/bootstrap.min1.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'css/docs.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'css/font-awesome.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'css/animate.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'css/templatemo_misc.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'css/templatemo_style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'css/owl-carousel.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+
+
+    <!-- <div class="container">
+        {% block title %}
+        {% endblock %}
+    </div> -->
+
+</head>
+
+<body>
+
+    <div class="site-main" id="sTop">
+        <div class="site-header">
+            <div class="main-header">
+                <div class="container">
+                    
+                        <div class="row">
+                            <nav class="navbar navbar-inverse" role="navigation">
+                                <div class="navbar-header">
+                                    <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse"
+                                        data-target="#main-nav">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                    <a href="{{url_for('dashboard')}}" class="navbar-brand">Boutique Mi-Ah</a>
+                                    <div id="main-nav" class="collapse navbar-collapse">
+                                        <ul class="menu-first nav navbar-nav" style="margin-right: 20px;">
+                                            <li><a href="{{url_for('sesion')}}">Sesion</a></li>
+                                            <li><a href="{{url_for('usuarios')}}">Usuarios</a></li>
+                                            <li><a href="{{url_for('proveedores')}}">Proveedores</a></li>
+                                            <li><a href="{{url_for('prendas')}}">Prendas</a></li>
+                                            <li><a href="{{url_for('ventas')}}">Ventas</a></li>
+                                            <li><a href="{{url_for('sApartado')}}">S. Apartado</a></li>
+                                        </ul>
+                                    </div> <!-- /.main-menu -->
+                                </div>
+                            </nav>
+                        </div> <!-- /.row -->
+                    
+                </div> <!-- /.container -->
+            </div> <!-- /.main-header -->
+        </div> <!-- /.site-header -->
+    </div> <!-- /.site-main -->
+
+
+    <div class="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="banner-content">
+                        {% block body %}
+                        {% endblock %}
+                        <br><br>
+                        <ul class="buttons">
+                            <!-- <li>
+                                <div class="primary-button">
+                                    <a href="#">Salir</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="secondary-button">
+                                    <a href="#">Regresar</a>
+                            </li> -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <ul class="social-icons">
+                        <li><a href="#">Ayuda</a></li>
+                        <li><a href="#">Soporte tecnico</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.slim.min.js') }}"></script>
+
+
+    <!-- templatemo 406 flex -->
+</body>
+
+</html>

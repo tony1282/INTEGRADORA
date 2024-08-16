@@ -1,0 +1,90 @@
+{% extends './layout.html' %}
+
+{% block title %} {{ titulo }} {% endblock %}
+
+{% block body %}
+<div class="container">
+  <h1 class="text-center">Agregar Apartado</h1>
+  <h3 class="text-center">Vendedor: {{ current_user.nombre_usuario }}</h3>
+  <br>
+
+  <!-- -----------------Alertas de registro, editado, borrado y restaurado---------------------------- -->
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-{% if "Error" in message %}danger {% elif "Advertencia" in message %}warning {% else %}success {% endif %} alert-dismissible fade show" role="alert">
+    <strong>{{ message }}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+  <!-- ------------------------------------------------------------------------------------------- -->
+
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <!-- Formulario para agregar prenda -->
+      <form action="{{ url_for('agregar_prendaApa') }}" method="post" class="mb-4">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="form-group mb-3">
+          <label for="prenda">Selecciona la prenda:</label>
+          <select name="id_prenda" id="prenda" class="form-select">
+            <option value="" class="text-center"> Seleccione la prenda</option>
+            {% for prenda in prendas %}
+            <option value="{{ prenda.id_prenda }}">{{ prenda.categoria }} - {{ prenda.nombre_marca }} {{ prenda.color }} {{ prenda.talla }} {{ prenda.precio_prenda }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <button type="submit" class="btn btn-outline-danger">Agregar prenda</button>
+      </form>
+
+      <!-- Lista de prendas en el carrito -->
+      <ul class="list-group mb-4">
+        {% for item in carrito %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          {{ item.categoria }} {{ item.nombre_marca }} {{ item.color }} {{ item.talla }} {{ item.precio_prenda }}
+          <form action="{{ url_for('quitar_prendaApa') }}" method="post" class="mb-0">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="id_prenda" value="{{ item.id_prenda }}">
+            <button type="submit" class="btn btn-danger btn-sm">Quitar prenda</button>
+          </form>
+        </li>
+        {% endfor %}
+      </ul>
+
+      <!-- Formulario para crear el apartado -->
+      <form method="post" action="{{ url_for('apartados_crear') }}" enctype="multipart/form-data" class="mx-auto" style="max-width: 500px;">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+        <div class="form-group mb-3">
+          <label for="anticipo">Anticipo</label>
+          <input type="number" class="form-control" id="anticipo" placeholder="$" name="anticipo">
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="nombre_cliente">Nombre del cliente</label>
+          <input type="text" class="form-control" id="nombre_cliente" placeholder="Nombre" name="nombre_cliente">
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="fecha_apartado">Fecha de apartado</label>
+          <input type="date" class="form-control" id="fecha_apartado" placeholder="AAAA-MM-DD" name="fecha_apartado">
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="fecha_limite">Fecha límite</label>
+          <input type="date" class="form-control" id="fecha_limite" placeholder="AAAA-MM-DD" name="fecha_limite">
+        </div>
+
+        <!-- Mostrar el total acumulado -->
+        <h4 class="text-center">Total: ${{ total_precio }}</h4>
+
+        <div class="text-center mt-4">
+          <button class="btn btn-outline-danger" type="submit">Guardar apartado</button>
+        </div>
+      </form>
+      <a class="btn btn-outline-danger me-2" href="{{ url_for('sApartado') }}">Cancelar</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

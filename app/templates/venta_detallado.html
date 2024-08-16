@@ -1,0 +1,45 @@
+{% extends './layout.html' %}
+{% block title %} Ay hola {% endblock %}
+{% block body %}
+
+<h2> Detalles Ventas</h2>
+
+
+<table class="table-bordered table-responsive">
+        <thead>
+                <tr>
+                        <th class="text-center">Prenda(s)</th>
+                        <th class="text-center">Vendedor </th>
+                        <th class="text-center">Fecha Venta  </th>
+                        <th class="text-center">Total  </th>
+                </tr>
+        </thead>
+        <tbody>
+
+                <tr>
+
+                        <td class="text-center">
+                                {{ventas[3]}}
+                        </td>
+                        <td class="text-center">
+                                {{ventas[1]}}
+                        </td>
+                        <td class="text-center">
+                                {{ventas[2]}}
+                        </td>
+
+                        <td class="text-center">
+                                ${{ventas[4]}}
+                        </td>
+
+                </tr>
+
+        </tbody>
+</table>
+    <br>
+    <div class="btn btn-outline-danger d-inline-flex align-items-center">
+    
+        <a class="btn-act" href="{{url_for('ventas')}}">Cancelar</a>
+    </div>
+
+{% endblock %}

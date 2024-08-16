@@ -1,0 +1,189 @@
+{% extends './layout.html' %}
+{% block title %} Ay hola {% endblock %}
+{% block body %}
+
+<h2>Proveedores</h2>
+<br>
+<!-- -----------------Alertas de registro, editado, borrado y restaurado---------------------------- -->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{% if " Error" in message %}danger {% elif "Advertencia" in message %}warning {% else %}success
+        {% endif %} alert-dismissible fade show" role="alert">
+        <strong>{{message}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+<!-- -------------------------------------BUSCADOR------------------------------------------ -->
+<div class="row mb-2">
+        <div class="col">
+                <h2></h2>
+        </div>
+        <div class="col">
+                <form method="get" action="{{url_for('proveedores')}}" class="d-flex">
+                        <input class="form-control" type="text" name="buscar" value="{{ search_query }}"
+                                placeholder="Buscar..." required>
+                        <button class="btn btn-outline-danger d-inline-flex align-items-center" type="submit"><i
+                                        class="fas fa-search"></i> </button>
+                </form>
+        </div>
+        <!-- -------------------------NUEVO PROVEEDOR-------------------------------------- -->
+        {% if current_user.rol == 1 %}
+        <div class="col text-end"><a href="{{url_for('proveedores_nuevo')}}"
+                        class="btn btn-outline-danger d-inline-flex align-items-center"><img
+                                src="{{ url_for('static',filename = 'img/plus.svg') }}" alt="">Nuevo</a></div>
+</div>
+<br>
+{% endif %}
+
+<!-- ---------------------------------------------------TABLA----------------------------------------- -->
+<table class="table-bordered table-responsive">
+        <thead>
+                <tr>
+                        <!-- --------TITULOS-------- -->
+                        {% if current_user.rol == 1 %}
+                        <th class="text-center tit">Ver</th>
+                        {% endif %}
+                        <th class="text-center tit">Nombre</th>
+                        <th class="text-center tit">Celular </th>
+                        {% if current_user.rol == 1 %}
+                        <th class="text-center tit">Editar</th>
+                        <th class="text-center tit">Borrar </th>
+                        {% endif %}
+                </tr>
+        </thead>
+        <tbody>
+                {% for proveedor in proveedores %}
+                {% if proveedor.estado == True %}
+                <tr>
+                        <!-- ---------------------------------CONTENIDO--------------------------------- -->
+                        {% if current_user.rol == 1 %}
+                        <td class="text-center">
+                                <div class="btn btn-outline-danger d-inline-flex align-items-center">
+
+                                        <a href="{{ url_for('proveedores_detalles', id = proveedor.id_proveedores) }}"><img
+                                                        src="{{ url_for('static',filename = 'img/eye.svg') }}" alt="ver"
+                                                        height="18"></a>
+                                </div>
+                        </td>
+                        {% endif %}
+                        <td class="text-center">
+                                {{proveedor.nombre_proveedor}}
+                        </td>
+                        <td class="text-center">
+                                {{proveedor.celular_proveedor}}
+                        </td>
+                        {% if current_user.rol == 1 %}
+                        <td class="text-center">
+                                <div class="btn btn-outline-danger d-inline-flex align-items-center">
+                                        <a href="{{ url_for('proveedores_editar', id = proveedor.id_proveedores) }}"><img
+                                                        src="{{ url_for('static',filename = 'img/edit.png') }}"
+                                                        alt="Editar" height="18"></a>
+                                </div>
+                        </td>
+
+                        <td class="text-center">
+                                <button type="button" class="btn btn-outline-danger d-inline-flex align-items-center"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#staticBackdrop-{{proveedor.id_proveedores}}"><img
+                                                src="{{ url_for('static',filename = 'img/delete.png') }}" alt="borrar"
+                                                height="18">
+                                </button>
+                        </td>
+                        {% endif %}
+                </tr>
+                {% endif %}
+                {% endfor %}
+
+        </tbody>
+</table>
+<br>
+<!-- --------------------------------------------------------FUNCION DEL PAGINADOR----------------------------------------------------- -->
+<nav aria-label="Page navigation example" class="justify-content-center">
+        <ul class="pagination justify-content-center">
+                {% if page > 1 %}
+                <li class="page-item">
+                        <a class="page-link"
+                                href="{{url_for('proveedores')}}?page={{ page - 1 }}&per_page={{ per_page }}"
+                                aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                        </a>
+                </li>
+                {% if page != 1 and page != 2 %}
+                <li class="page-item"><a class="page-link" href="{{url_for('proveedores')}}">1</a></li>
+                {% if page != 3 %}
+                <li class="page-item"><a class="page-link disabled">...</a></li>
+                {% endif %}
+                {% endif %}
+                <li class="page-item"><a class="page-link"
+                                href="{{url_for('proveedores')}}?page={{ page - 1 }}&per_page={{ per_page }}">{{page-1}}</a>
+                </li>
+                {% endif %}
+
+                <li class="page-item"><a class="page-link active" href="#">{{page}}</a></li>
+
+                {% if page < total_pages %} <li class="page-item"><a class="page-link"
+                                href="{{url_for('proveedores')}}?page={{ page + 1 }}&per_page={{ per_page }}">{{page+1}}</a>
+                        </li>
+                        {% if page != total_pages and page != total_pages-1 %}
+                        {% if page != total_pages-2 %}
+                        <li class="page-item"><a class="page-link disabled">...</a></li>
+                        {% endif %}
+                        <li class="page-item"><a class="page-link"
+                                        href="{{url_for('proveedores')}}?page={{ total_pages }}&per_page={{ per_page }}">{{total_pages}}</a>
+                        </li>
+                        {% endif %}
+                        <li class="page-item">
+                                <a class="page-link"
+                                        href="{{url_for('proveedores')}}?page={{ page + 1 }}&per_page={{ per_page }}"
+                                        aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                </a>
+                        </li>
+                        {% endif %}
+        </ul>
+</nav>
+<!-- ---------------------------------------------------------------PAPELERA---------------------------------------------------------- -->
+{% if current_user.rol == 1 %}
+<div>
+        <br>
+        {% if current_user.rol == 1 %}
+        <a href="{{ url_for('proveedor_papelera') }}"
+                class="btn btn-outline-danger d-inline-flex align-items-center">Papelera<img
+                        src="{{ url_for('static',filename = 'img/trash.svg') }}" alt="papelera" height="18"></a>
+        {% endif %}
+</div>
+{% endif %}
+<!-- --------------------------------------------------------------------MODAL---------------------------------------------------- -->
+{% if proveedores %}
+{% for proveedor in proveedores %}
+<div class="modal fade" id="staticBackdrop-{{proveedor.id_proveedores}}" data-bs-backdrop="static"
+        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+                <div class="modal-content">
+                        <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Confirmar acción</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                                ¿Deseas eliminar a <strong>{{ proveedor.nombre_proveedor }} {{
+                                        proveedor.celular_proveedor }}</strong>?
+                        </div>
+                        <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancelar</button>
+                                <a class="btn btn-danger"
+                                        href="{{ url_for('proveedor_eliminar', id = proveedor.id_proveedores) }}"
+                                        class="btn-delete"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                        </div>
+                </div>
+        </div>
+</div>
+{% endfor %}
+{% else %}
+{% endif %}
+
+{% endblock %}

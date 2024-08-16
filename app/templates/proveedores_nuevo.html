@@ -1,0 +1,33 @@
+{% extends './layout.html' %}
+{% block title %} {{titulo}} {% endblock %}
+{% block body %}
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <h2 class="text-center">Proveedor nuevo</h2>
+      <br>
+      <form method="POST" action="{{url_for('proveedores_crear')}}">
+        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+
+        <div class="form-group">
+          <label for="nombre">Nombre(s)</label>
+          <input type="text" class="form-control" id="nombre" placeholder="Nombre" name="nombre" required>
+        </div>
+
+        <div class="form-group">
+          <label for="celular">Celular</label>
+          <input type="text" class="form-control" id="celular" placeholder="Número" name="celular" required>
+        </div>
+        <p>
+          <br>
+        <div class="text-center">
+          <a class="btn btn-outline-danger" href="{{url_for('proveedores')}}">Cancelar</a>
+          <button class="btn btn-outline-danger" type="submit">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

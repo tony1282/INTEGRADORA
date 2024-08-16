@@ -1,0 +1,52 @@
+{% extends './layout.html' %}
+{% block title %} Ay hola {% endblock %}
+{% block body %}
+<h2>Detalles de Proveedor</h2>
+<br>
+<div class="col text-end">
+    <a href="{{ url_for('descargar_reporte', proveedor_id=proveedores[0]) }}" class="btn btn-outline-danger">
+            Descargar Inventario de Prendas
+    </a>
+</div>
+<p class="fc">Última edición: {{proveedores.4}}</p>
+<p class="fc">Fecha de creación: {{proveedores.5}}</p>
+<br>
+<table class="table-bordered table-responsive">
+    <thead>
+        <tr>
+            <th class="text-center tit">Nombre </th>
+            <th class="text-center tit">Celular </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+
+            <td>
+                {{proveedores[1]}}
+            </td>
+            <td>
+                {{proveedores[2]}}
+            </td>
+
+        </tr>
+    </tbody>
+</table>
+<br>
+<div>
+    <!-- proveedores_actualizar.html> -->
+    <a class="btn-act btn btn-outline-danger d-inline-flex align-items-center"
+        href="{{ url_for('proveedores_editar', id = proveedores[0]) }}">Editar</a>
+</div>
+<br>
+<div>
+    <a class="btn-act btn btn-outline-danger d-inline-flex align-items-center"
+        href="{{url_for('proveedores')}}">Cancelar</a>
+</div>
+<script>
+    document.getElementById('downloadLink').addEventListener('click', function() {
+        setTimeout(function() {
+            window.location.href = "{{ url_for('proveedores') }}";
+        }, 2000);  // Esperar un poco antes de redirigir
+    });
+</script>
+{% endblock %}

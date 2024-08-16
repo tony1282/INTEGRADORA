@@ -1,0 +1,123 @@
+{% extends './layout.html' %}
+
+{% block title %}
+{{ titulo }}
+{% endblock %}
+
+{% block body %}
+<h2>Prenda nueva</h2>
+<form method="POST" action="{{ url_for('prendas_crear') }}">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+  <div class="row">
+    <div class="col-md-6">
+      <label for="categoria_prenda">Categoría</label>
+      <select name="categoria_prenda" id="categoria_prenda" class="form-select" aria-label="Default select example"
+        required>
+        <option value="" selected>------Seleccione el tipo--------</option>
+        {% if categorias %}
+        {% for categoria in categorias %}
+        <option value="{{ categoria.0 }}">{{ categoria.1 }}</option>
+        {% endfor %}
+        {% else %}
+        <option>Aún no hay registros</option>
+        {% endif %}
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <label for="color_prenda">Color</label>
+      <select name="color_prenda" id="color_prenda" class="form-select" aria-label="Default select example" required>
+        <option value="" required selected>------Seleccione el color--------</option>
+        {% if colores %}
+        {% for color in colores %}
+        <option value="{{ color.0 }}">{{ color.1 }}</option>
+        {% endfor %}
+        {% else %}
+        <option>Aún no hay registros</option>
+        {% endif %}
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <label for="talla_prenda">Tallas</label>
+      <select name="talla_prenda" id="talla_prenda" class="form-select" aria-label="Default select example" required>
+        <option value="" selected>------Seleccione la talla--------</option>
+        {% if tallas %}
+        {% for talla in tallas %}
+        <option value="{{ talla.0 }}">{{ talla.1 }}</option>
+        {% endfor %}
+        {% else %}
+        <option>Aún no hay registros</option>
+        {% endif %}
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <label for="marca_prenda">Marca</label>
+      <select name="marca_prenda" id="marca_prenda" class="form-select" aria-label="Default select example" required>
+        <option value="" selected>------Seleccione la marca--------</option>
+        {% if marcas %}
+        {% for marca in marcas %}
+        <option value="{{ marca.0 }}">{{ marca.1 }}</option>
+        {% endfor %}
+        {% else %}
+        <option>Aún no hay registros</option>
+        {% endif %}
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <label for="nombre_prov">Proveedor</label>
+      <select name="nombre_prov" id="nombre_prov" class="form-select" aria-label="Default select example" required>
+        <option value="" selected>------Seleccione el proveedor--------</option>
+        {% if proveedores %}
+        {% for proveedor in proveedores %}
+        <option value="{{ proveedor.0 }}">{{ proveedor.1 }}</option>
+        {% endfor %}
+        {% else %}
+        <option>Aún no hay registros</option>
+        {% endif %}
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="cantidad">Cantidad</label>
+        <input type="number" class="form-control" id="cantidad" placeholder="Cantidad" name="cantidad" required>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="codigo_prenda">Código</label>
+        <input type="text" class="form-control" id="codigo_prenda" placeholder="Código de barras" name="codigo_prod"
+          required>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="precio_prenda">Precio</label>
+        <input type="text" class="form-control" id="precio_prenda" placeholder="$ 0.00" name="precio_prenda" required>
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <div class="text-center">
+    <a class="btn btn-outline-danger d-inline-flex align-items-center" href="{{ url_for('prendas') }}">
+      Cancelar
+    </a>
+    <button class="btn btn-outline-danger d-inline-flex align-items-center" type="submit">
+      Guardar
+    </button>
+  </div>
+</form>
+{% endblock %}

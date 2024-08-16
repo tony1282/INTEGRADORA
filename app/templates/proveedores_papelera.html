@@ -1,0 +1,47 @@
+{% extends './layout.html' %}
+{% block title %} Ay hola {% endblock %}
+{% block body %}
+
+<h2>Proveedores Eliminados</h2>
+<br>
+<br><br>
+
+<table class="table-bordered table-responsive">
+        <thead>
+                <tr>
+                        <th class="text-center">Ver</th>
+                        <th class="text-center">Nombre</th>
+                        <th class="text-center">Celular </th>
+                </tr>
+        </thead>
+        <tbody>
+                {% for proveedor in proveedores %}
+                {% if proveedor.3==False %}
+                <tr>
+                        <td class="text-center">
+                                <div class="btn btn-outline-danger d-inline-flex align-items-center">
+                                        <a href="{{ url_for('proveedores_detallesRes', id = proveedor[0]) }}"><img
+                                                        src="{{ url_for('static',filename = 'img/eye.svg') }}" alt="ver"
+                                                        height="18"></a>
+                                </div>
+                        </td>
+
+                        <td class="text-center">
+                                {{proveedor[1]}}
+                        </td>
+                        <td class="text-center">
+                                {{proveedor[2]}}
+                        </td>
+
+                </tr>
+                {% endif %}
+                {% endfor %}
+
+        </tbody>
+</table>
+<div class="btn btn-outline-danger d-inline-flex align-items-center">
+
+        <a href="{{ url_for('proveedores')}}"><img src="{{ url_for('static',filename = 'img/redo.svg') }}" alt="restaurar"
+                        height="18"></a>
+</div>
+{% endblock %}

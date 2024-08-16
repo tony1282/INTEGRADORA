@@ -1,0 +1,28 @@
+{% extends './layout.html' %}
+{% block title %} Ay hola {% endblock %}
+{% block body %}
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Categoría</th>
+            <th>Talla</th>
+            <th>Color</th>
+            <th>Precio</th>
+            <th>Marca</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for prenda in prendas %}
+        <tr>
+            <td>{{ prenda[0] }}</td>
+            <td>{{ prenda[1] }}</td>
+            <td>{{ prenda[2] }}</td>
+            <td>{{ prenda[3] }}</td>
+            <td>{{ prenda[4] }}</td>
+            <td>{{ prenda[5] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

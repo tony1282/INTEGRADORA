@@ -1,0 +1,26 @@
+{% extends './layout.html' %}
+{% block title %} Ay hola {% endblock %}
+{% block body %}
+
+
+<h2>registrar proveedor</h2>
+<form action="{{url_for('proveedores_crear')}}" method="POST" class="row g-3">
+    <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" placeholder="Nombre" name="nombre">
+        <label for="floatingInput">Nombre</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" placeholder="Numero de telefono" name="celular">
+        <label for="floatingInput">Numero de telefono</label>
+    </div>
+
+
+    <button class="btn btn-outline-danger d-inline aling-items-center" type="submit">Guardar</button>
+
+    <a class="btn btn-outline-danger d-inline aling-items-center" href="{{url_for('proveedores')}}">Cancelar</a>
+    <br>
+
+</form>
+{% endblock %}

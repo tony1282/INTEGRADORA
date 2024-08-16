@@ -1,0 +1,129 @@
+{% extends './layout.html' %}
+{% block title %} Ay hola {% endblock %}
+{% block body %}
+
+<h2>Ventas</h2>
+<!-- -----------------Alertas de registro, editado, borrado y restaurado---------------------------- -->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{% if " Error" in message %}danger {% elif "Advertencia" in message %}warning {% else %}success
+        {% endif %} alert-dismissible fade show" role="alert">
+        <strong>{{message}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+<!-- -------------------------------------BUSCADOR------------------------------------------ -->
+<div class="row mb-2">
+        <div class="col">
+                <h2></h2>
+        </div>
+        <div class="col">
+                <form method="get" action="{{url_for('ventas')}}" class="d-flex">
+                        <input class="form-control" type="text" name="buscar" value="{{ search_query }}"
+                                placeholder="Buscar..." required>
+                        <button class="btn btn-outline-danger d-inline-flex align-items-center" type="submit"><i
+                                        class="fas fa-search"></i> </button>
+                </form>
+        </div>
+        <!-- -------------------------NUEVA VENTA-------------------------------------- -->
+        {% if current_user.rol == 1 %}
+        <div class="col text-end"><a href="{{url_for('venta_nuevo')}}"
+                        class="btn btn-outline-danger d-inline-flex align-items-center"><img
+                                src="{{ url_for('static',filename = 'img/plus.svg') }}" alt="">Nuevo</a></div>
+</div>
+<br>
+{% endif %}
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+<h4> Vendedor: {{current_user.nombre_usuario}}</h4>
+<!-- --------------------------------------------TABLA DE VENTAS--------------------------------------------- -->
+<table class="table-bordered table-responsive">
+        <thead>
+                <tr>
+                        <th class="text-center tit">Ver mas</th>
+                        <th class="text-center tit">Prenda </th>
+                        <th class="text-center tit">Vendedor </th>
+                        <th class="text-center tit">Fecha Venta</th>
+                        <th class="text-center tit">Total </th>
+                </tr>
+        </thead>
+        <tbody>
+                {% for venta in ventas %}
+                <tr>
+                        <!-- ---------------DETALLES VENTA-------------- -->
+                        <td class="text-center">
+                                <div class="btn btn-outline-danger d-inline-flex align-items-center">
+
+                                        <a href="{{url_for('venta_detallado', id = venta.id_venta) }}"><img
+                                                        src="{{ url_for('static',filename = 'img/eye.svg') }}" alt="ver"
+                                                        height="18"></a>
+                                </div>
+                        </td>
+
+                        <td class="text-center">
+                                {{venta.prenda_mostrar}}
+                        </td>
+                        <td class="text-center">
+                                {{venta.nombre_usuario}}
+                        </td>
+                        <td class="text-center">
+                                {{venta.fecha_creacion}}
+                        </td>
+
+                        <td class="text-center">
+                                {{venta.total_venta}}
+                        </td>
+                </tr>
+                {% endfor %}
+        </tbody>
+</table>
+<br>
+<!-- -------------------------------------------------PAGINADOR----------------------------------------------- -->
+<nav aria-label="Page navigation example" class="justify-content-center">
+        <ul class="pagination justify-content-center" style="margin:20px 0">
+                {% if page > 1 %}
+                <li class="page-item">
+                        <a class="page-link" href="{{url_for('usuarios')}}?page={{ page - 1 }}&per_page={{ per_page }}"
+                                aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                        </a>
+                </li>
+                {% if page != 1 and page != 2 %}
+                <li class="page-item"><a class="page-link" href="{{url_for('usuarios')}}">1</a></li>
+                {% if page != 3 %}
+                <li class="page-item"><a class="page-link disabled">...</a></li>
+                {% endif %}
+                {% endif %}
+                <li class="page-item"><a class="page-link"
+                                href="{{url_for('usuarios')}}?page={{ page - 1 }}&per_page={{ per_page }}">{{page-1}}</a>
+                </li>
+                {% endif %}
+
+                <li class="page-item"><a class="page-link active" href="#">{{page}}</a></li>
+
+                {% if page < total_pages %} <li class="page-item"><a class="page-link"
+                                href="{{url_for('usuarios')}}?page={{ page + 1 }}&per_page={{ per_page }}">{{page+1}}</a>
+                        </li>
+                        {% if page != total_pages and page != total_pages-1 %}
+                        {% if page != total_pages-2 %}
+                        <li class="page-item"><a class="page-link disabled">...</a></li>
+                        {% endif %}
+                        <li class="page-item"><a class="page-link"
+                                        href="{{url_for('usuarios')}}?page={{ total_pages }}&per_page={{ per_page }}">{{total_pages}}</a>
+                        </li>
+                        {% endif %}
+                        <li class="page-item">
+                                <a class="page-link"
+                                        href="{{url_for('usuarios')}}?page={{ page + 1 }}&per_page={{ per_page }}"
+                                        aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                </a>
+                        </li>
+                        {% endif %}
+        </ul>
+</nav>
+
+{% endblock %}

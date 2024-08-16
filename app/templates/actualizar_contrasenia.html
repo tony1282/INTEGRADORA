@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static',filename = 'css/sesion.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename = 'css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename = 'css/docs.css') }}">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+</head>
+
+{% block body %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>{{message}}</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+
+<div class="body1">
+  <div class="container1">
+    <h2 class="text-center">Actualizar Contraseña</h2>
+    <main class="form-signin w-70 m-auto mt-5 mb-5 text-center">
+      <form action="{{ url_for('actualizar_contraseña') }}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="form-group mb-3">
+          <label for="correo_electronico">Correo Electrónico</label>
+          <input type="correo_electronico" class="form-control" id="correo_electronico" placeholder="Correo Electrónico"
+            name="correo_electronico" required>
+        </div>
+        <div class="form-group mb-3">
+          <label for="new_password">Nueva Contraseña</label>
+          <input type="password" class="form-control" id="new_password" placeholder="Nueva Contraseña"
+            name="new_password" required>
+        </div>
+        <div class="form-group mb-3">
+          <label for="confirm_password">Confirmar Nueva Contraseña</label>
+          <input type="password" class="form-control" id="confirm_password" placeholder="Confirmar Nueva Contraseña"
+            name="confirm_password" required>
+        </div>
+        <button class="btn btn-outline-danger" type="submit">Actualizar Contraseña</button>
+        <br><br>
+        <a class="btn btn-outline-danger" href="{{ url_for('login') }}">Cancelar</a>
+      </form>
+    </main>
+  </div>
+</div>
+{% endblock %}
+
+</html>

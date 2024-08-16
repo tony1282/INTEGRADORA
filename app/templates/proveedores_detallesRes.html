@@ -1,0 +1,41 @@
+{% extends './layout.html' %}
+{% block title %} Ay hola {% endblock %}
+{% block body %}
+<h2>Detalles de Proveedor eliminado</h2>
+<br>
+<p class="fc">Última edición: {{proveedores.4}}</p>
+<p class="fc">Fecha de creación: {{proveedores.5}}</p>
+<br>
+<table class="table-bordered table-responsive">
+
+    <thead>
+        <tr>
+            <th class="text-center tit">Nombre </th>
+            <th class="text-center tit">Celular </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+
+            <td>
+                {{proveedores[1]}}
+            </td>
+            <td>
+                {{proveedores[2]}}
+            </td>
+
+        </tr>
+    </tbody>
+</table>
+<br>
+<div>
+    <!-- proveedores_actualizar.html> -->
+    <a class="btn-act btn btn-outline-danger d-inline-flex align-items-center"
+        href="{{ url_for('proveedor_restaurar', id = proveedores[0]) }}">Restaurar</a>
+</div>
+<br>
+<div>
+    <a class="btn-act btn btn-outline-danger d-inline-flex align-items-center"
+        href="{{url_for('proveedores')}}">Cancelar</a>
+</div>
+{% endblock %}

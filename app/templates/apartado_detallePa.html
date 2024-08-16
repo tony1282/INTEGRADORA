@@ -1,0 +1,46 @@
+{% extends './layout.html' %}
+{% block title %} Listado de Apartados {% endblock %}
+{% block body %}
+
+<h1>Listado de Apartados</h1>
+
+<a class="btn btn-outline-danger d-inline-flex align-items-center" href="{{ url_for('apartado_papelera') }}">
+    Regresar
+</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Anticipo</th>
+            <th>Precio Final</th>
+            <th>Nombre del Cliente</th>
+            <th>Categoría</th>
+            <th>Creado</th>
+            <th>Fecha de Apartado</th>
+            <th>Fecha Límite</th>
+            <th>Editado</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        {% for apartado in apartados %}
+        <tr>
+            <td>{{ apartado[0] }}</td>
+            <td>{{ apartado[1] }}</td>
+            <td>{{ apartado[2] }}</td>
+            <td>{{ apartado[3] }}</td>
+            <td>{{ apartado[4] }}</td>
+            <td>{{ apartado[5] }}</td>
+            <td>{{ apartado[6] }}</td>
+            <td>{{ apartado[7] }}</td>
+            <td>{{ apartado[8] }}</td>
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+
+{% endblock %}

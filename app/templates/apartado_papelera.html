@@ -1,0 +1,117 @@
+{% extends './layout.html' %}
+{% block title %} Ay hola {% endblock %}
+{% block body %}
+
+<h2>Sistema de Apartado</h2>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="text-center">Ver</th>
+            <th class="text-center">Anticipo</th>
+            <th class="text-center">Precio final</th>
+            <th class="text-center">Nombre del cliente</th>
+            <th class="text-center">Fecha de apartado</th>
+            <th class="text-center">Fecha límite</th>
+            <th class="text-center">Restaurar</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for apartado in apartados %}
+            {% if not apartado.activo %}
+                <tr>
+                    <td class="text-center">
+                        <div class="btn btn-outline-danger d-inline-flex align-items-center">
+                            <a href="{{ url_for('apartado_detallePa', id=apartado.id_apartado) }}">
+                                <img src="{{ url_for('static', filename='img/eye.svg') }}" alt="ver" height="18">
+                            </a>
+                        </div>
+                    </td>
+                    <td class="text-center">{{ apartado.anticipo }}</td>
+                    <td class="text-center">{{ apartado.precio_final }}</td>
+                    <td class="text-center">{{ apartado.nombre_cliente }}</td>
+                    <td class="text-center">{{ apartado.fecha_apartado }}</td>
+                    <td class="text-center">{{ apartado.fecha_limite }}</td>
+                    <td class="text-center">
+
+                        <button type="button" class="btn btn-outline-danger d-inline-flex align-items-center"
+                            data-bs-toggle="modal" data-bs-target="#staticBackdrop-{{ apartado.id_apartado}}"> 
+                            Restaurar
+                        </button>
+                        
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
+
+<a class="btn btn-outline-danger d-inline-flex align-items-center" href="{{ url_for('sApartado') }}">
+    Regresar
+</a>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        {% if page > 1 %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('apartado_papelera', page=page-1, per_page=per_page) }}"
+                   aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% if page != 1 and page != 2 %}
+                <li class="page-item"><a class="page-link" href="{{ url_for('apartado_papelera') }}">1</a></li>
+                {% if page != 3 %}
+                    <li class="page-item"><a class="page-link disabled">...</a></li>
+                {% endif %}
+            {% endif %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('apartado_papelera', page=page-1, per_page=per_page) }}">{{ page-1 }}</a>
+            </li>
+        {% endif %}
+        <li class="page-item"><a class="page-link active" href="#">{{ page }}</a></li>
+        {% if page < total_pages %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('apartado_papelera', page=page+1, per_page=per_page) }}">{{ page+1 }}</a>
+            </li>
+            {% if page != total_pages and page != total_pages-1 %}
+                {% if page != total_pages-2 %}
+                    <li class="page-item"><a class="page-link disabled">...</a></li>
+                {% endif %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('apartado_papelera', page=total_pages, per_page=per_page) }}">{{ total_pages }}</a>
+                </li>
+            {% endif %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('apartado_papelera', page=page+1, per_page=per_page) }}"
+                   aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+
+
+{% for apartado in apartados %}
+    <div class="modal fade" id="staticBackdrop-{{ apartado.id_apartado }}" data-bs-backdrop="static" data-bs-keyboard="false"
+         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Confirmar acción</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Deseas restaurar a <strong>nombre: {{ apartado.nombre_cliente }} anticipo: {{ apartado.anticipo }} precio final: {{ apartado.precio_final }}</strong>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-danger" href="{{ url_for('apartado_restaurar', id=apartado.id_apartado) }}">Restaurar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}

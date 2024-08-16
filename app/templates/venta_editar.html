@@ -1,0 +1,32 @@
+
+{% extends './layout.html' %}
+
+{% block title %} {{titulo}} {% endblock %}
+
+{% block body %}
+
+
+
+<form method="POST" action="{{url_for('ventas_crear')}}">
+    <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+   
+    <div class="form-group">
+      <label for="detven">Prenda</label>
+      <input type="text" class="form-control" id="detven" placeholder="en desarrollo solo acepta id_detven" name="detven">
+    </div>
+    
+    <div class="form-group">
+         <label for="usuario">Usuario</label>
+         <input type="text" class="form-control" id="usuario" placeholder="en desarrollo solo acepta id_usuario" name="usuario">
+       </div>
+    
+    <button class="btn btn-primary d-inline-flex align-items-center" type="submit">
+        Guardar
+    </button>
+    <a class="btn btn-outline-danger d-inline-flex align-items-center" href="{{url_for('ventas')}}">
+        Cancelar
+    </a>
+</form>
+
+
+{% endblock %}

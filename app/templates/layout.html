@@ -1,64 +1,62 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel = "stylesheet" href = "{{url_for ('static', filename = 'css/bootstrap.min.css')}}" integrity= "sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous"  >
-    <title > {% block title %} {% endblock %} </title>
+    <link rel="stylesheet" href="https:// cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'css/estilos.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'css/docs.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
 
 </head>
 
-<body>  
+<body>
+    <div class="header container-fluid">
+        <a class="titulo" href="{{url_for('dashboard')}}"><img src="{{ url_for('static',filename = 'img/logoB.svg') }}"
+                height="60"></a>
+        <nav class="navbar navbar-expand-sm navbar-dark">
+            <div class="container-fluid">
+                <button class="menu-toggle" aria-label="Toggle menu"><img
+                        src="{{ url_for('static',filename = 'img/menu.svg') }}" alt=""></button>
+                <ul class="navbar-nav me-auto">
+                    {% if current_user.rol == 1 %}
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('usuarios')}}">USUARIOS</a></li>
+                    {% endif %}
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('prendas')}}">PRENDAS</a></li>
+                    {% if current_user.rol == 1 %}
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('proveedores')}}">PROVEEDORES</a></li>
+                    {% endif %}
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('ventas')}}">VENTAS</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('sApartado')}}">APARTADOS</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('logout')}}">CERRAR SESIÓN</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                Dropdown
-              </a>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled">Disabled</a>
-            </li>
-          </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
-        </div>
-      </nav>
-
-      
-     
-    <div class = "container -1g p-3">
+    <div class="content">
         {% block body %}
         {% endblock %}
     </div>
-  
-    
-    
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 
 
+    <footer class="footer bg-dark text-white text-center py-3">
+        <div class="container">
+            <p class="mb-0">© SPVBMA 2024 Todos los derechos reservados.</p>
+            <p class="mb-0">Síguenos en
+                <a href="https://www.facebook.com/profile.php?id=100010694017208" class="text-white">Facebook</a> e
+                <a href="https://www.instagram.com/miah_boutique28/" class="text-white">Instagram</a>.
+            </p>
+            </p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.slim.min.js') }}"></script>
 </body>
+
 </html>

@@ -1,0 +1,57 @@
+{% extends './layout.html' %}
+{% block title %} Ay hola {% endblock %}
+{% block body %}
+
+<h2>Productos</h2>
+<p>Consulta</p>
+
+<h1>Arreglo compuesto</h1>
+
+<table class="table table-hover">
+        <thead>
+                <tr>
+                        <th class="text-center">Nombre </th>
+                        <th class="text-center">Apellio Paterno </th>
+                        <th class="text-center">Apellio Materno </th>
+                        <th class="text-center">Domicilio </th>
+                        <th class="text-center"> </th>
+                </tr>
+        </thead>
+        <tbody>
+                {% for alumno in alumnos %}
+                <tr>
+                        <td>
+                                {{alumno[1]}}
+                                
+                        </td>
+
+                        <td>
+                                {{alumno[2]}}
+                        </td>
+                        <td>
+                                {{alumno[3]}}
+                        </td>
+                        <td>
+                                {{alumno[4]}}
+                        </td>
+                        <td>
+                            <ul class="buttons">
+                                <li>
+                                    <div class="primary-button">
+                                        <a href="#"><img src="{{ url_for('static',filename = 'img/edit.png') }}" alt="Editar" height="18"></a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="secondary-button">
+                                        <a href="#"><img src="{{ url_for('static',filename = 'img/delete.png') }}" alt="borrar" height="18"></a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </td>
+
+                </tr>
+                {% endfor %}
+        </tbody>
+</table>
+
+{% endblock %}

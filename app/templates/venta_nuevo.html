@@ -1,0 +1,70 @@
+{% extends './layout.html' %}
+{% block title %} {{titulo}} {% endblock %}
+{% block body %}
+
+<div class="container">
+  <h2 class="text-center">Venta nueva</h2>
+  <h3 class="text-center">Vendedor: {{ current_user.nombre_usuario }}</h3>
+
+  <!-- -----------------Alertas de registro, editado, borrado y restaurado---------------------------- -->
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-{% if " Error" in message %}danger {% elif "Advertencia" in message %}warning {% else %}success {% endif %} alert-dismissible fade show" role="alert">
+    <strong>{{ message }}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+  <!-- ------------------------------------------------------------------------------------------- -->
+
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <!-- Formulario para agregar prenda -->
+      <form action="{{ url_for('agregar_prenda') }}" method="post" class="mb-4">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="form-group mb-3">
+          <label for="prenda">Selecciona la prenda:</label>
+          <select name="id_prenda" id="prenda" class="form-select">
+            <option value="" class="text-center"> Seleccione la prenda</option>
+            {% for prenda in prendas %}
+            <option value="{{ prenda.id_prenda }}">{{ prenda.categoria }} - {{ prenda.nombre_marca }} {{ prenda.color }} {{ prenda.talla }} {{ prenda.precio_prenda }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <button type="submit" class="btn btn-outline-danger">Agregar prenda</button>
+      </form>
+
+      <!-- Lista de prendas en el carrito -->
+      <ul class="list-group mb-4">
+        {% for item in carrito %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          {{ item.categoria }} {{ item.nombre_marca }} {{ item.color }} {{ item.talla }} {{ item.precio_prenda }}
+          <form action="{{ url_for('quitar_prenda') }}" method="post" class="mb-0">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="id_prenda" value="{{ item.id_prenda }}">
+            <button type="submit" class="btn btn-danger btn-sm">Quitar</button>
+          </form>
+        </li>
+        {% endfor %}
+      </ul>
+
+      <!-- Mostrar el total acumulado -->
+      <h4 class="text-center">Total: ${{ total_precio }}</h4>
+
+      <!-- Formulario para finalizar la venta -->
+      <form action="{{ url_for('ventas_crear') }}" method="post" class="text-center">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="usuario" value="{{ current_user.id_usuario }}">
+        <button type="submit" class="btn btn-outline-danger d-inline-flex align-items-center">Finalizar Venta</button>
+      </form>
+      <br>
+      <a class="btn btn-outline-danger d-inline-flex align-items-center" href="{{ url_for('ventas') }}">
+        Cancelar
+      </a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

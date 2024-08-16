@@ -1,0 +1,54 @@
+{% extends './layout.html' %}
+{% block title %} Detalles de Apartados {% endblock %}
+{% block body %}
+
+<h1>Detalles de Apartados</h1>
+<br>
+<p class="fc">Fecha creación: {{ apartados[7] }}</p>
+<p class="fc">Fecha modificación: {{ apartados[10] }}</p>
+<br>
+<table class="table-bordered table-responsive">
+    <thead>
+        <tr>
+            <th>Anticipo</th>
+            <th>Precio Final</th>
+            <th>Nombre del Cliente</th>
+            <th>Prenda(s)</th>
+            <th>Fecha de Apartado</th>
+            <th>Fecha Límite</th>
+            <th>vendedor</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <!-- anticipo -->
+            <td>{{ apartados[4] }}</td>
+            <!-- precio final -->
+            <td>{{ apartados[5] }}</td>
+            <!-- nombre cliente -->
+            <td>{{ apartados[6] }}</td>
+            <!-- Prendas -->
+            <td>{{ apartados[12] }}</td>
+            <!-- fecha de apartado -->
+            <td>{{ apartados[8] }}</td>
+            <!-- fecha limite -->
+            <td>{{ apartados[9] }}</td>
+            <!-- vendedor -->
+            <td>{{ apartados[13] }}</td>
+
+        </tr>
+    </tbody>
+</table>
+<div>
+    <br>
+    <a class="btn-act btn btn-outline-danger d-inline-flex align-items-center"
+        href="{{ url_for('apartado_editar', id = apartados[0]) }}">Editar</a>
+</div>
+<br>
+<a class="btn btn-outline-danger d-inline-flex align-items-center" href="{{ url_for('sApartado') }}">
+    Regresar
+</a>
+
+
+{% endblock %}

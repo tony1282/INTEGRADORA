@@ -1,0 +1,64 @@
+{% extends './layout.html' %}
+{% block title %} proye {% endblock %}
+{% block body %}
+
+
+<h2> Bienvenid@ a</h2>
+<h1> <i> Boutique Mi-Ah </h1> </i>
+<br>
+
+<br>
+<div class="card-container">
+        <div class="card">
+            <img src="{{ url_for('static',filename = 'img/vestido.jpg') }}" alt="Vestidos">
+            <div class="card-content">
+                <h3>Vestidos</h3>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="{{ url_for('static',filename = 'img/pantalon.jpg') }}" alt="Pantalones">
+            <div class="card-content">
+                <h3>Pantalones</h3>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="{{ url_for('static',filename = 'img/camisa.jpg') }}" alt="Camisas">
+            <div class="card-content">
+                <h3>Camisas</h3>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="{{ url_for('static',filename = 'img/falda.jpg') }}" alt="Faldas">
+            <div class="card-content">
+                <h3>Faldas</h3>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="{{ url_for('static',filename = 'img/abrigo.jpg') }}" alt="Abrigo">
+            <div class="card-content">
+                <h3>Abrigo</h3>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="{{ url_for('static',filename = 'img/sueter.jpg') }}" alt="Sueter">
+            <div class="card-content">
+                <h3>Sueter</h3>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="{{ url_for('static',filename = 'img/chamarra.jpg') }}" alt="Chamarra">
+            <div class="card-content">
+                <h3>Chamarra</h3>
+            </div>
+        </div>
+        <!-- Más tarjetas -->
+    </div>
+    
+
+{% endblock %}
