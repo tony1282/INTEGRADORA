@@ -27,13 +27,13 @@ csrf=CSRFProtect()
 #-------------------------------conexion---------------------------------------------
 def get_db_connection():
     try:
-        conn = psycopg2.connect(host='localhost',
-                                dbname='SPVBMA',
-                                user=os.environ['postgres'],
-                                password=os.environ['gojo'])
+        conn = psycopg2.connect(host="localhost",
+                                dbname="spvbma",
+                                user="postgres",
+                                password="gojo")
         return conn
     except psycopg2.Error as error:
-        print(f"error de conexion: {error}")
+        print(f"Error al conectar a la base de datos: {error}")
         return None
     
 #--------------------------------Login------------------------------------------
