@@ -28,9 +28,10 @@ csrf=CSRFProtect()
 def get_db_connection():
     try:
         conn = psycopg2.connect(host="localhost",
-                                dbname="spvbma",
+                                dbname="SPVBMA",
                                 user="postgres",
-                                password="gojo")
+                                password="gojo"),
+                                
         return conn
     except psycopg2.Error as error:
         print(f"Error al conectar a la base de datos: {error}")
@@ -1275,5 +1276,11 @@ if __name__ == '__main__':
     csrf.init_app(app)
     app.register_error_handler(404, pagina_no_encontrada)
     app.register_error_handler(401, acceso_no_autorizado)
-    app.run(host= '0.0.0.0', port=5000) 
+    app.run(host= '0.0.0.0',debug =True, port=5000) 
+    
+    
+   
+
+    
+   
 #todos los derechos reservados
