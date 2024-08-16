@@ -29,13 +29,13 @@
                 </form>
         </div>
         <!-- -------------------------NUEVA VENTA-------------------------------------- -->
-        {% if current_user.rol == 1 %}
+        
         <div class="col text-end"><a href="{{url_for('venta_nuevo')}}"
                         class="btn btn-outline-danger d-inline-flex align-items-center"><img
                                 src="{{ url_for('static',filename = 'img/plus.svg') }}" alt="">Nuevo</a></div>
 </div>
 <br>
-{% endif %}
+
 <!-- ---------------------------------------------------------------------------------------------------- -->
 
 <h4> Vendedor: {{current_user.nombre_usuario}}</h4>
